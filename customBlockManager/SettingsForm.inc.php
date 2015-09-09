@@ -83,6 +83,7 @@ class SettingsForm extends Form {
 			$pluginSettingsDao->deleteSetting($journalId, $deletedBlock, 'seq');
 			$pluginSettingsDao->deleteSetting($journalId, $deletedBlock, 'context');
 			$pluginSettingsDao->deleteSetting($journalId, $deletedBlock, 'blockContent');
+			$pluginSettingsDao->deleteSetting($journalId, $deletedBlock, 'privateBlock');
 		}
 
 		//sort the blocks in alphabetical order

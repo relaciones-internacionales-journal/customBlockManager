@@ -95,8 +95,7 @@ class CustomBlockEditForm extends Form {
 	 * Assign form data to user-submitted data.
 	 */
 	function readInputData() {
-		$this->readUserVars(array('blockContent'));
-		$this->readUserVars(array('privateBlock'));
+		$this->readUserVars(array('blockContent', 'privateBlock'));
 	}
 	
 	/**

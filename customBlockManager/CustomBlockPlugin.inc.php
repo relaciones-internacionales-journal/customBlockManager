@@ -189,19 +189,46 @@ class CustomBlockPlugin extends BlockPlugin {
 		
 		$locale = AppLocale::getLocale();
 		$primaryLocale = AppLocale::getPrimaryLocale();
-		$blockContent = $this->getSetting($journalId, 'blockContent');
+						
+		$user =& Request::getUser();
+		
 		$privateBlockOption = $this->getSetting($journalId, 'privateBlock');
-		$blockContentLocale = '';
-	
-		if (array_key_exists($locale, $blockContent)) {
-			$blockContentLocale = $blockContent[$locale];
-		}
+		
+		if ($user != null) {
+			$roleDao =& DAORegistry::getDAO('RoleDAO');
+			$roles =& $roleDao->getRolesByUserId($user->getId(), $journalId);
+			
+			$roleNames = array();
+			foreach ($roles as $role) $roleNames[$role->getRolePath()] = $role->getRolePath();
+					
+			$blockContent = $this->getSetting($journalId, 'blockContent');
+			$blockContentLocale = '';
+		
+			if (array_key_exists($locale, $blockContent)) {
+				$blockContentLocale = $blockContent[$locale];
+			}
 
-		$id = 'customblock-'.preg_replace('/\W+/', '-', $this->blockName);
-		$templateMgr->assign('customBlockId', $id);
-		$templateMgr->assign('customBlockContent', $blockContentLocale);
-		$templateMgr->assign('privateBlockOption', $privateBlockOption);
-		return parent::getContents($templateMgr);
+			$id = 'customblock-'.preg_replace('/\W+/', '-', $this->blockName);
+			$templateMgr->assign('customBlockId', $id);
+			$templateMgr->assign('customBlockContent', $blockContentLocale);
+			$templateMgr->assign('privateBlockOption', $privateBlockOption);
+			$templateMgr->assign('roles', $roleNames);
+			return parent::getContents($templateMgr);
+		}
+		
+		if ($user == null && $privateBlockOption  == null) {
+			$blockContent = $this->getSetting($journalId, 'blockContent');
+			$blockContentLocale = '';
+		
+			if (array_key_exists($locale, $blockContent)) {
+				$blockContentLocale = $blockContent[$locale];
+			}
+
+			$id = 'customblock-'.preg_replace('/\W+/', '-', $this->blockName);
+			$templateMgr->assign('customBlockId', $id);
+			$templateMgr->assign('customBlockContent', $blockContentLocale);
+			return parent::getContents($templateMgr);
+		}			
 	}
 
 	/**

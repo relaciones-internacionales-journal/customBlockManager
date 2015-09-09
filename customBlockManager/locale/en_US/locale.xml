@@ -28,5 +28,5 @@
 	<message key="plugins.generic.customBlock.editContent">Edit the sidebar content</message>
 	<message key="plugins.generic.customBlock.contentRequired">Some content is required.  If you wish you delete this block, you can do so with the Block Manager Plugin or by deselecting this block in Step 5 of the journal setup.</message>
 	<message key="plugins.generic.customBlock.edit">Edit</message>
-	<message key="plugins.generic.customBlock.makePrivate">Do you want to keep this block visible only for logged user?</message>
+	<message key="plugins.generic.customBlock.makePrivate">Choose which users will see this block (leave it blank to make visible for all users):</message>
 </locale>

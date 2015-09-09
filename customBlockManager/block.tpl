@@ -9,22 +9,18 @@
  *
  *}
  
-{if $privateBlockOption =='1'}
-	{if $isUserLoggedIn}
-		<div class="block custom" id="{$customBlockId}">
-			{$customBlockContent}
-		</div>
+{if $privateBlockOption}
+	
+	{if array_intersect($privateBlockOption, $roles)}
+		{if $isUserLoggedIn}
+			<div class="block custom" id="{$customBlockId}">
+				{$customBlockContent}
+			</div>
+		{/if}
 	{/if}
 
-{elseif $privateBlockOption =='0' || is_null($privateBlockOption)}
+{elseif is_null($privateBlockOption)}
 	<div class="block custom" id="{$customBlockId}">
 		{$customBlockContent}
 	</div>
 {/if}
- 
- 
- 
-
-
-
-
